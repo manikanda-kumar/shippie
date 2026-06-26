@@ -25,7 +25,7 @@ https://github.com/mattzcarey/shippie/assets/77928207/92029baf-f691-465f-8d15-e1
 - A prebuilt review **workflow**, not a bespoke CLI — the agent loop runs on [flue](https://flueframework.com/) + [pi](https://pi.dev).
 - Runs **anywhere**: Node, Cloudflare, GitHub Actions, GitLab CI.
 - Functions as a human code reviewer, using flue's built-in tools instead of a hand-rolled tool registry.
-- Provider-agnostic: Anthropic, OpenAI, OpenRouter, and Cloudflare Workers AI out of the box.
+- Provider-agnostic: Anthropic, OpenAI, OpenRouter, OpenCode Go, and Cloudflare Workers AI out of the box.
 - Acts as an MCP client for integration with external tools.
 
 ## Quick start 🚀
@@ -55,7 +55,7 @@ jobs:
       - uses: mattzcarey/shippie@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
 ```
 
 See [Action Options](docs/action-options.md) for all inputs (`MODEL`, `THINKING_LEVEL`, `IGNORE`, `CUSTOM_INSTRUCTIONS`, `MCP_SERVERS`, and the provider keys).
@@ -79,7 +79,7 @@ See the [setup instructions](docs/setup.md) for more docs on how to set up shipp
 ### Additional Documentation
 
 - [Setup](docs/setup.md) - Get shippie running in CI and locally
-- [AI Provider Configuration](docs/ai-provider-config.md) - Configure Anthropic, OpenAI, OpenRouter, and Cloudflare Workers AI
+- [AI Provider Configuration](docs/ai-provider-config.md) - Configure Anthropic, OpenAI, OpenRouter, OpenCode Go, and Cloudflare Workers AI
 - [Action Options](docs/action-options.md) - GitHub Action configuration options
 - [Model Context Protocol (MCP)](docs/mcp.md) - Give shippie access to external tools
 - [Rules Files](docs/rules-files.md) - Inject project context via `AGENTS.md` / `CLAUDE.md` and Agent Skills
@@ -106,7 +106,7 @@ This repo targets Node >= 22.19 with npm.
 3. Set up your API key:
 
    - Copy `.env.example` to `.env`.
-   - Set the provider key you want to use, e.g. `ANTHROPIC_API_KEY` (or `OPENAI_API_KEY`, `OPENROUTER_API_KEY`, `CLOUDFLARE_API_KEY` + `CLOUDFLARE_ACCOUNT_ID`).
+   - Set the provider key you want to use, e.g. `ANTHROPIC_API_KEY` (or `OPENAI_API_KEY`, `OPENROUTER_API_KEY`, `OPENCODE_GO_API_KEY`, `CLOUDFLARE_API_KEY` + `CLOUDFLARE_ACCOUNT_ID`).
 
 4. Run the review workflow:
 

@@ -3,7 +3,10 @@ import { local } from '@flue/runtime/node'
 import { createReporter } from '../github/reporter'
 import { type ReviewPayload, resolveReviewConfig } from '../review/config'
 import { buildInstructions } from '../review/instructions'
+import { registerReviewProviders } from '../review/providers'
 import { createSuggestChangeTool } from '../tools/suggest-change'
+
+registerReviewProviders()
 
 /**
  * The Shippie code-review agent. Runs in a `local()` sandbox over the repo

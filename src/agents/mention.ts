@@ -1,5 +1,8 @@
 import { createAgent } from '@flue/runtime'
 import { channel, commentOnIssue, getPullRequestDiff } from '../channels/github'
+import { registerReviewProviders } from '../review/providers'
+
+registerReviewProviders()
 
 /**
  * The `/shippie` mention agent (webhook/channel mode). Dispatched by the GitHub
@@ -13,7 +16,7 @@ export default createAgent(({ id }) => {
   const ref = channel.parseConversationKey(id)
 
   return {
-    model: process.env.SHIPPIE_MODEL ?? 'anthropic/claude-sonnet-4-6',
+    model: process.env.SHIPPIE_MODEL ?? 'opencode-go/deepseek-v4-pro',
     instructions: `You are Shippie, an automated code-review agent summoned by a "/shippie" command on ${ref.owner}/${ref.repo} #${ref.issueNumber}.
 
 The incoming message describes the user's request. Decide what they want:

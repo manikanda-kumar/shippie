@@ -10,8 +10,9 @@
  * Config is read from the environment (same vars as the GitHub Action):
  *   SHIPPIE_MODEL, SHIPPIE_REVIEW_LANGUAGE, SHIPPIE_THINKING_LEVEL,
  *   SHIPPIE_IGNORE, SHIPPIE_CUSTOM_INSTRUCTIONS, SHIPPIE_MCP_SERVERS,
- *   SHIPPIE_TELEMETRY, plus the provider key (ANTHROPIC_API_KEY, OPENAI_API_KEY,
- *   OPENROUTER_API_KEY, or CLOUDFLARE_API_KEY + CLOUDFLARE_ACCOUNT_ID).
+ *   SHIPPIE_TELEMETRY, plus the provider key (OPENCODE_GO_API_KEY,
+ *   ANTHROPIC_API_KEY, OPENAI_API_KEY, OPENROUTER_API_KEY, or
+ *   CLOUDFLARE_API_KEY + CLOUDFLARE_ACCOUNT_ID).
  */
 import { spawn } from 'node:child_process'
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
@@ -28,7 +29,7 @@ Usage:
   shippie configure  Deprecated alias for "init" (removed in the next major version)
 
 Set a model + provider key first, e.g.:
-  export ANTHROPIC_API_KEY=...   # with SHIPPIE_MODEL=anthropic/claude-sonnet-4-6 (default)
+  export OPENCODE_GO_API_KEY=...   # default model: opencode-go/deepseek-v4-pro
 `
 
 const WORKFLOW_TEMPLATE = `name: Shippie 🚢
@@ -49,8 +50,8 @@ jobs:
           fetch-depth: 0
       - uses: mattzcarey/shippie@v0
         with:
-          MODEL: anthropic/claude-sonnet-4-6
-          ANTHROPIC_API_KEY: \${{ secrets.ANTHROPIC_API_KEY }}
+          MODEL: opencode-go/deepseek-v4-pro
+          OPENCODE_GO_API_KEY: \${{ secrets.OPENCODE_GO_API_KEY }}
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
 `
 
@@ -83,7 +84,7 @@ if (command === 'init' || command === 'configure') {
 
 Next steps:
   1. Add a provider API key as a repo secret (Settings → Secrets and variables → Actions),
-     e.g. ANTHROPIC_API_KEY — or edit the workflow to use OPENAI_API_KEY / Cloudflare.
+     e.g. OPENCODE_GO_API_KEY — or edit the workflow to use another provider key.
   2. Open a pull request; Shippie will review it.
 
 Run reviews locally with: shippie review

@@ -5,24 +5,26 @@ tells flue which built-in provider to use (and therefore which credentials to re
 and the rest is the model id passed through to that provider.
 
 ```
-anthropic/claude-sonnet-4-6
+opencode-go/deepseek-v4-pro
 openai/gpt-4.1-mini
 cloudflare-workers-ai/@cf/openai/gpt-oss-120b
+anthropic/claude-sonnet-4-6
 ```
 
-## Built-in providers
+## Supported providers
 
 | Provider prefix         | Credentials                                                   | Example model id                              |
 | ----------------------- | ------------------------------------------------------------ | --------------------------------------------- |
 | `anthropic`             | `ANTHROPIC_API_KEY`                                          | `anthropic/claude-sonnet-4-6`                 |
 | `openai`                | `OPENAI_API_KEY`                                             | `openai/gpt-4.1-mini` (also `openai/gpt-5`)   |
 | `openrouter`            | `OPENROUTER_API_KEY`                                         | `openrouter/anthropic/claude-sonnet-4-6`      |
+| `opencode-go`           | `OPENCODE_GO_API_KEY`                                        | `opencode-go/deepseek-v4-pro`                 |
 | `cloudflare-workers-ai` | `CLOUDFLARE_API_KEY` + `CLOUDFLARE_ACCOUNT_ID`              | `cloudflare-workers-ai/@cf/openai/gpt-oss-120b` |
 | `cloudflare-ai-gateway` | `CLOUDFLARE_API_KEY` + `CLOUDFLARE_ACCOUNT_ID` + `CLOUDFLARE_GATEWAY_ID` | `cloudflare-ai-gateway/anthropic/claude-sonnet-4-6` |
 
 ## Setting the model
 
-The default model is `anthropic/claude-sonnet-4-6`. You can override it three ways:
+The default model is `opencode-go/deepseek-v4-pro`. You can override it three ways:
 
 - **GitHub Action input** — `MODEL`:
 
@@ -58,7 +60,7 @@ or `payload.thinkingLevel`:
 ```yaml
 - uses: mattzcarey/shippie@main
   with:
-    MODEL: anthropic/claude-sonnet-4-6
+    MODEL: opencode-go/deepseek-v4-pro
     THINKING_LEVEL: high
 ```
 
@@ -90,6 +92,23 @@ call tools reliably.
 
 For a Cloudflare AI Gateway in front of these models, use the
 `cloudflare-ai-gateway` prefix and additionally set `CLOUDFLARE_GATEWAY_ID`.
+
+## OpenCode Go
+
+`opencode-go` uses OpenCode Go's OpenAI-compatible chat completions endpoint. It
+needs `OPENCODE_GO_API_KEY` (or `OPENCODE_API_KEY` as a fallback):
+
+```bash
+export OPENCODE_GO_API_KEY=...
+flue run review --target node \
+  --payload '{"platform":"local","model":"opencode-go/deepseek-v4-pro"}'
+```
+
+Recommended review models are `deepseek-v4-pro`, `glm-5.2`, and
+`kimi-k2.7-code`. Shippie's `opencode-go` provider is wired to the
+`/chat/completions` protocol, so use OpenCode Go models that support that endpoint.
+Models served only through OpenCode Go's Anthropic-compatible `/messages` endpoint
+are not supported by this provider.
 
 ## Custom OpenAI-compatible providers
 

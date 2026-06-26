@@ -7,7 +7,7 @@ describe('resolveReviewConfig', () => {
   test('defaults with empty env', () => {
     const cfg = resolveReviewConfig(undefined, env({}))
     expect(cfg.platform).toBe('local')
-    expect(cfg.model).toBe('anthropic/claude-sonnet-4-6')
+    expect(cfg.model).toBe('opencode-go/deepseek-v4-pro')
     expect(cfg.thinkingLevel).toBe('medium')
     expect(cfg.reviewLanguage).toBe('English')
     expect(cfg.mcpServers).toEqual({})

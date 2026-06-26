@@ -3,9 +3,9 @@ description: "an extensible code review agent built on flue"
 author: "Matt Carey"
 inputs:
   MODEL:
-    description: "Flue model specifier, e.g. anthropic/claude-sonnet-4-6, openai/gpt-5.5, openrouter/..."
+    description: "Flue model specifier, e.g. opencode-go/deepseek-v4-pro, openai/gpt-5.5, openrouter/..."
     required: false
-    default: "anthropic/claude-sonnet-4-6"
+    default: "opencode-go/deepseek-v4-pro"
   REVIEW_LANGUAGE:
     description: "Target natural language for review feedback"
     required: false
@@ -34,6 +34,15 @@ inputs:
     required: false
   OPENROUTER_API_KEY:
     description: "OpenRouter API key"
+    required: false
+  OPENCODE_GO_API_KEY:
+    description: "OpenCode Go API key, for model 'opencode-go/<model>'"
+    required: false
+  OPENCODE_API_KEY:
+    description: "OpenCode API key fallback, for model 'opencode-go/<model>'"
+    required: false
+  OPENCODE_GO_BASE_URL:
+    description: "OpenCode Go API base URL override"
     required: false
   CLOUDFLARE_API_KEY:
     description: "Cloudflare API token, for model 'cloudflare-workers-ai/<model>' or 'cloudflare-ai-gateway/<model>'"
@@ -84,6 +93,9 @@ runs:
         ANTHROPIC_API_KEY: ${{ inputs.ANTHROPIC_API_KEY || env.ANTHROPIC_API_KEY }}
         OPENAI_API_KEY: ${{ inputs.OPENAI_API_KEY || env.OPENAI_API_KEY }}
         OPENROUTER_API_KEY: ${{ inputs.OPENROUTER_API_KEY || env.OPENROUTER_API_KEY }}
+        OPENCODE_GO_API_KEY: ${{ inputs.OPENCODE_GO_API_KEY || env.OPENCODE_GO_API_KEY }}
+        OPENCODE_API_KEY: ${{ inputs.OPENCODE_API_KEY || env.OPENCODE_API_KEY }}
+        OPENCODE_GO_BASE_URL: ${{ inputs.OPENCODE_GO_BASE_URL || env.OPENCODE_GO_BASE_URL }}
         CLOUDFLARE_API_KEY: ${{ inputs.CLOUDFLARE_API_KEY || env.CLOUDFLARE_API_KEY }}
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.CLOUDFLARE_ACCOUNT_ID || env.CLOUDFLARE_ACCOUNT_ID }}
         CLOUDFLARE_GATEWAY_ID: ${{ inputs.CLOUDFLARE_GATEWAY_ID || env.CLOUDFLARE_GATEWAY_ID }}

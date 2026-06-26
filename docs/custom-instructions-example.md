@@ -40,7 +40,7 @@ jobs:
       - uses: mattzcarey/shippie@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
           CUSTOM_INSTRUCTIONS: |
             Pay special attention to SQL injection, XSS, and missing input validation.
             Flag any new dependency added to package.json and explain why it is needed.

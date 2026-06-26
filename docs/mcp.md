@@ -81,8 +81,8 @@ jobs:
       - uses: mattzcarey/shippie@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          MODEL: anthropic/claude-sonnet-4-6
+          OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
+          MODEL: opencode-go/deepseek-v4-pro
           MCP_SERVERS: |
             {
               "context7": {

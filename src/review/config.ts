@@ -19,7 +19,7 @@ export interface ReviewPayload {
   platform?: ReviewPlatform
   /** Path to the repository checkout to review. Defaults to GITHUB_WORKSPACE or cwd. */
   workspace?: string
-  /** Flue model specifier, e.g. `anthropic/claude-sonnet-4-6`. */
+  /** Flue model specifier, e.g. `opencode-go/deepseek-v4-pro`. */
   model?: string
   thinkingLevel?: ThinkingLevel
   reviewLanguage?: string
@@ -57,7 +57,7 @@ export interface ReviewConfig {
   mcpServers: Record<string, McpServerInput>
 }
 
-const DEFAULT_MODEL = 'anthropic/claude-sonnet-4-6'
+const DEFAULT_MODEL = 'opencode-go/deepseek-v4-pro'
 const DEFAULT_THINKING: ThinkingLevel = 'medium'
 
 const parseMcpServers = (

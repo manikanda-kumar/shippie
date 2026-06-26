@@ -11,7 +11,7 @@ All inputs are optional except `GITHUB_TOKEN`.
 
 | Input | Description | Required | Default |
 | --- | --- | --- | --- |
-| `MODEL` | Flue model specifier in `provider/model` form, e.g. `anthropic/claude-sonnet-4-6`, `openai/gpt-5`, `openrouter/...`. | No | `anthropic/claude-sonnet-4-6` |
+| `MODEL` | Flue model specifier in `provider/model` form, e.g. `opencode-go/deepseek-v4-pro`, `openai/gpt-5`, `openrouter/...`. | No | `opencode-go/deepseek-v4-pro` |
 | `REVIEW_LANGUAGE` | Target natural language for review feedback. | No | `English` |
 | `THINKING_LEVEL` | Reasoning effort: `off` \| `minimal` \| `low` \| `medium` \| `high` \| `xhigh`. | No | `medium` |
 | `IGNORE` | Comma-separated glob patterns to skip, e.g. `**/*.test.ts,dist/**`. | No | — |
@@ -20,13 +20,17 @@ All inputs are optional except `GITHUB_TOKEN`.
 | `ANTHROPIC_API_KEY` | Anthropic API key (for `anthropic/<model>`). | No | — |
 | `OPENAI_API_KEY` | OpenAI API key (for `openai/<model>`). | No | — |
 | `OPENROUTER_API_KEY` | OpenRouter API key (for `openrouter/<model>`). | No | — |
+| `OPENCODE_GO_API_KEY` | OpenCode Go API key (for `opencode-go/<model>`). | No | — |
+| `OPENCODE_API_KEY` | OpenCode API key fallback (also accepted for `opencode-go/<model>`). | No | — |
+| `OPENCODE_GO_BASE_URL` | OpenCode Go API base URL override. | No | `https://opencode.ai/zen/go/v1` |
 | `CLOUDFLARE_API_KEY` | Cloudflare API token (for `cloudflare-workers-ai/<model>` or `cloudflare-ai-gateway/<model>`). | No | — |
 | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account ID (required for the Cloudflare Workers AI / AI Gateway providers). | No | — |
 | `CLOUDFLARE_GATEWAY_ID` | Cloudflare AI Gateway ID (only for `cloudflare-ai-gateway/<model>`). | No | — |
 | `GITHUB_TOKEN` | GitHub token used to post review comments. | **Yes** | — |
 
 Provide the provider credential that matches your chosen `MODEL`. For example, the
-default model (`anthropic/claude-sonnet-4-6`) needs `ANTHROPIC_API_KEY`.
+default model (`opencode-go/deepseek-v4-pro`) needs `OPENCODE_GO_API_KEY` or
+`OPENCODE_API_KEY`.
 
 ### `MCP_SERVERS`
 
@@ -79,8 +83,8 @@ jobs:
         uses: mattzcarey/shippie@v0
         with:
           GITHUB_TOKEN: ${{ github.token }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          MODEL: anthropic/claude-sonnet-4-6
+          OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
+          MODEL: opencode-go/deepseek-v4-pro
           THINKING_LEVEL: medium
           REVIEW_LANGUAGE: English
           IGNORE: "**/*.test.ts,dist/**"
@@ -110,7 +114,7 @@ jobs:
       - uses: mattzcarey/shippie@v0
         with:
           GITHUB_TOKEN: ${{ github.token }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
 ```
 
 Re-request the bot as a reviewer to trigger a fresh review.

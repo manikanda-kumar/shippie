@@ -60,8 +60,8 @@ jobs:
       - name: Run Shippie 🚢
         uses: mattzcarey/shippie@v0
         with:
-          MODEL: anthropic/claude-sonnet-4-6
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MODEL: opencode-go/deepseek-v4-pro
+          OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.issue.number }}
           BASE_SHA: ${{ steps.pr.outputs.base_sha }}
@@ -107,8 +107,8 @@ Set on the server:
 | --- | --- |
 | `GITHUB_WEBHOOK_SECRET` | **Required.** Verifies inbound webhook deliveries. |
 | `GITHUB_TOKEN` | **Required.** Authenticates Shippie's reply comments + diff fetches. |
-| `SHIPPIE_MODEL` | Model specifier (default `anthropic/claude-sonnet-4-6`). |
-| *provider key* | e.g. `ANTHROPIC_API_KEY` — see [ai-provider-config.md](ai-provider-config.md). |
+| `SHIPPIE_MODEL` | Model specifier (default `opencode-go/deepseek-v4-pro`). |
+| *provider key* | e.g. `OPENCODE_GO_API_KEY` — see [ai-provider-config.md](ai-provider-config.md). |
 
 ### Register the webhook
 

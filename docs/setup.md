@@ -6,7 +6,7 @@ Shippie 🚢 is a prebuilt code-review agent built on [flue](https://github.com/
 
 - Node >= 22.19
 - Git
-- An API key for your chosen model provider (Anthropic, OpenAI, OpenRouter, or Cloudflare)
+- An API key for your chosen model provider (Anthropic, OpenAI, OpenRouter, OpenCode Go, or Cloudflare)
 
 ## GitHub Action 🚀
 
@@ -35,8 +35,8 @@ jobs:
       - name: Run shippie
         uses: mattzcarey/shippie@v0
         with:
-          MODEL: anthropic/claude-sonnet-4-6
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MODEL: opencode-go/deepseek-v4-pro
+          OPENCODE_GO_API_KEY: ${{ secrets.OPENCODE_GO_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -50,14 +50,14 @@ All inputs are optional unless noted.
 
 | Input | Default | Notes |
 | --- | --- | --- |
-| `MODEL` | `anthropic/claude-sonnet-4-6` | `provider/model` string |
+| `MODEL` | `opencode-go/deepseek-v4-pro` | `provider/model` string |
 | `REVIEW_LANGUAGE` | `English` | |
 | `THINKING_LEVEL` | `medium` | `off` \| `minimal` \| `low` \| `medium` \| `high` \| `xhigh` |
 | `IGNORE` | — | comma-separated glob patterns |
 | `CUSTOM_INSTRUCTIONS` | — | extra guidance for the reviewer |
 | `MCP_SERVERS` | — | JSON string of remote MCP servers |
 | `GITHUB_TOKEN` | — | **required** |
-| `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` / `OPENROUTER_API_KEY` | — | provider credentials |
+| `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` / `OPENROUTER_API_KEY` / `OPENCODE_GO_API_KEY` / `OPENCODE_API_KEY` | — | provider credentials |
 | `CLOUDFLARE_API_KEY` / `CLOUDFLARE_ACCOUNT_ID` / `CLOUDFLARE_GATEWAY_ID` | — | for Cloudflare providers |
 
 ## Local Usage 🌈
@@ -75,8 +75,8 @@ npm install
 Set up your `.env` with a model and the matching API key:
 
 ```shell
-SHIPPIE_MODEL=anthropic/claude-sonnet-4-6
-ANTHROPIC_API_KEY=<your-api-key>
+SHIPPIE_MODEL=opencode-go/deepseek-v4-pro
+OPENCODE_GO_API_KEY=<your-api-key>
 ```
 
 Stage the files you want reviewed, then run:
@@ -119,7 +119,10 @@ Use a `provider/model` string and supply the matching credential:
 | `anthropic/<model>` | `anthropic/claude-sonnet-4-6` | `ANTHROPIC_API_KEY` |
 | `openai/<model>` | `openai/gpt-4.1-mini`, `openai/gpt-5` | `OPENAI_API_KEY` |
 | `openrouter/<model>` | — | `OPENROUTER_API_KEY` |
+| `opencode-go/<model>` | `opencode-go/deepseek-v4-pro` | `OPENCODE_GO_API_KEY` or `OPENCODE_API_KEY` |
 | `cloudflare-workers-ai/<model>` | `cloudflare-workers-ai/@cf/openai/gpt-oss-120b` | `CLOUDFLARE_API_KEY` + `CLOUDFLARE_ACCOUNT_ID` |
 | `cloudflare-ai-gateway/<model>` | — | `CLOUDFLARE_API_KEY` + `CLOUDFLARE_ACCOUNT_ID` + `CLOUDFLARE_GATEWAY_ID` |
+
+For OpenCode Go, prefer OpenAI-compatible chat completions models such as `deepseek-v4-pro`, `glm-5.2`, or `kimi-k2.7-code`.
 
 For Cloudflare Workers AI, prefer larger models with strong tool-calling (e.g. `@cf/openai/gpt-oss-120b`, `@cf/qwen/qwen3-30b-a3b-fp8`, `@cf/zai-org/glm-5.2`); small models like `@cf/meta/llama-3.3-70b` are weak at tool-calling. Custom OpenAI-compatible providers (Ollama, gateways) are registered with `registerProvider()` in `src/app.ts`.
